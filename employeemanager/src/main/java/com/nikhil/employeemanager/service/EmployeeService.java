@@ -1,5 +1,6 @@
 package com.nikhil.employeemanager.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nikhil.employeemanager.model.Employee;
 import com.nikhil.employeemanager.repo.EmployeeRepo;
+import com.nikhil.employeemanager.exception.*;;
 
 
 @Service
@@ -25,4 +27,22 @@ public class EmployeeService {
         return employeeRepo.save(employee);
     }
     
+
+    public List<Employee> findAllEmployees(){
+        return employeeRepo.findAll();
+    }
+
+    public Employee updatEmployee(Employee employee){
+        return employeeRepo.save(employee);
+
+    }
+
+        public Employee findEmployeeById(Long id){
+       return employeeRepo.findEmployeeById(id)
+            .orElseThrow(() -> new UserNotFoundException("User by id " + id + " is not found"));
+        }
+
+    public void deleteEmployee(Long id){
+        employeeRepo.deleteEmployeeById(id);
+    }
 }
